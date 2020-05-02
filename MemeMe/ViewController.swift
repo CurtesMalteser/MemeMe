@@ -27,6 +27,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage  {
+            imagePickerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+            imagePickerView.image = image
+        }
+        
         picker.dismiss(animated: true, completion:{print("imagePickerController")})
         
     }
