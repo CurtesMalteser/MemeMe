@@ -34,18 +34,43 @@
                                 </items>
                             </toolbar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-wb-ncz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3b8-0Y-7Qi" userLabel="TopToolbar">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem image="square.and.arrow.up" catalog="system" id="6U2-dj-2Ku" userLabel="Share Button"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bmA-ll-B7Z"/>
+                                    <barButtonItem title="Cancel" id="rLT-9U-GA0" userLabel="Cancel Button"/>
+                                </items>
+                            </toolbar>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dPA-FL-Qbm" userLabel="Top Text Field">
+                                <rect key="frame" x="190.5" y="120" width="33" height="34"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsP-yd-8Uy" userLabel="Bottom Text Field">
+                                <rect key="frame" x="190.5" y="747" width="33" height="34"/>
+                                <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0hE-CH-Y50"/>
+                            <constraint firstItem="3b8-0Y-7Qi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1F0-Bc-ggn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IQW-wb-ncz" secondAttribute="trailing" id="6J3-WC-EBk"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Qqb-cL-dfZ"/>
-                            <constraint firstItem="IQW-wb-ncz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="T9S-ws-lYZ"/>
+                            <constraint firstItem="IQW-wb-ncz" firstAttribute="top" secondItem="3b8-0Y-7Qi" secondAttribute="bottom" id="UBy-s3-LKU"/>
                             <constraint firstItem="IQW-wb-ncz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="akh-RM-ZYc"/>
+                            <constraint firstItem="dsP-yd-8Uy" firstAttribute="bottom" secondItem="yFp-cl-4Yb" secondAttribute="top" constant="-32" id="bPQ-kw-kqJ"/>
+                            <constraint firstItem="dPA-FL-Qbm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="bq3-jP-BYs"/>
+                            <constraint firstItem="dPA-FL-Qbm" firstAttribute="top" secondItem="3b8-0Y-7Qi" secondAttribute="bottom" constant="32" id="gqI-oB-I4c"/>
+                            <constraint firstItem="3b8-0Y-7Qi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hqy-1z-AkQ"/>
+                            <constraint firstItem="dsP-yd-8Uy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hxj-vu-COG"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ixs-cv-jEp"/>
+                            <constraint firstItem="3b8-0Y-7Qi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rSw-CO-kFA"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="top" secondItem="IQW-wb-ncz" secondAttribute="bottom" id="tSQ-t3-cya"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -62,5 +87,6 @@
     </scenes>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="96"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
     </resources>
 </document>
