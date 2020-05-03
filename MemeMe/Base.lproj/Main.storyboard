@@ -18,16 +18,19 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFp-cl-4Yb" userLabel="BottomToolbar">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5jO-LG-icS"/>
                                     <barButtonItem title="Camera" image="camera.fill" catalog="system" id="GgT-Tq-DSo">
                                         <connections>
                                             <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="eRm-JA-ErJ"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="AES-CL-f8j"/>
                                     <barButtonItem title="Album" id="5z5-Oo-Pic">
                                         <connections>
                                             <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="5B7-Rg-mhz"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="C7f-5i-Mie"/>
                                 </items>
                             </toolbar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-wb-ncz">
@@ -48,6 +51,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cameraButton" destination="GgT-Tq-DSo" id="bMr-9j-RZP"/>
                         <outlet property="imagePickerView" destination="IQW-wb-ncz" id="tFK-xh-DFb"/>
                     </connections>
                 </viewController>
