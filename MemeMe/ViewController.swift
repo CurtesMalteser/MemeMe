@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var imagePickerView: UIImageView!
     
@@ -23,9 +23,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topTextField.memeTextFieldAttributes("top")
+        topTextField.memeTextFieldAttributes("top", textFieldDelegate: self)
 
-        bottomTextField.memeTextFieldAttributes("bottom")
+        bottomTextField.memeTextFieldAttributes("bottom", textFieldDelegate: self)
         
     }
     
@@ -58,8 +58,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
         picker.dismiss(animated: true, completion:nil)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     
@@ -73,10 +81,11 @@ fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
 ]
 
 fileprivate extension UITextField {
-    func memeTextFieldAttributes(_ string : String) {
+    func memeTextFieldAttributes(_ string : String, textFieldDelegate: UITextFieldDelegate) {
         text = string
         defaultTextAttributes = memeTextAttributes
-        self.textAlignment = .center
+        textAlignment = .center
+        delegate = textFieldDelegate
     }
 }
 
