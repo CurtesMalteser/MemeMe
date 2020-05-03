@@ -14,10 +14,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
+    @IBOutlet weak var topTextField: UITextField!
+    
+    @IBOutlet weak var bottomTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+        topTextField.memeTextFieldAttributes("top")
+
+        bottomTextField.memeTextFieldAttributes("bottom")
         
     }
     
@@ -54,5 +62,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.dismiss(animated: true, completion:nil)
     }
     
+    
+}
+
+fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
+    NSAttributedString.Key.strokeColor: UIColor.black,
+    NSAttributedString.Key.foregroundColor: UIColor.white,
+    NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+    NSAttributedString.Key.strokeWidth: -1.0
+]
+
+fileprivate extension UITextField {
+    func memeTextFieldAttributes(_ string : String) {
+        text = string
+        defaultTextAttributes = memeTextAttributes
+        self.textAlignment = .center
+    }
 }
 

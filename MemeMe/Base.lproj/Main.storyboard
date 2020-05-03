@@ -45,13 +45,13 @@
                                     <barButtonItem title="Cancel" id="rLT-9U-GA0" userLabel="Cancel Button"/>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dPA-FL-Qbm" userLabel="Top Text Field">
-                                <rect key="frame" x="190.5" y="120" width="33" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dPA-FL-Qbm" userLabel="Top Text Field">
+                                <rect key="frame" x="32" y="120" width="350" height="20.5"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsP-yd-8Uy" userLabel="Bottom Text Field">
-                                <rect key="frame" x="190.5" y="747" width="33" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsP-yd-8Uy" userLabel="Bottom Text Field">
+                                <rect key="frame" x="32" y="760.5" width="350" height="20.5"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -60,24 +60,28 @@
                         <constraints>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0hE-CH-Y50"/>
                             <constraint firstItem="3b8-0Y-7Qi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1F0-Bc-ggn"/>
+                            <constraint firstItem="dPA-FL-Qbm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="4OJ-ef-tQZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IQW-wb-ncz" secondAttribute="trailing" id="6J3-WC-EBk"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Qqb-cL-dfZ"/>
                             <constraint firstItem="IQW-wb-ncz" firstAttribute="top" secondItem="3b8-0Y-7Qi" secondAttribute="bottom" id="UBy-s3-LKU"/>
                             <constraint firstItem="IQW-wb-ncz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="akh-RM-ZYc"/>
                             <constraint firstItem="dsP-yd-8Uy" firstAttribute="bottom" secondItem="yFp-cl-4Yb" secondAttribute="top" constant="-32" id="bPQ-kw-kqJ"/>
-                            <constraint firstItem="dPA-FL-Qbm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="bq3-jP-BYs"/>
+                            <constraint firstItem="dsP-yd-8Uy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="e0J-e0-48B"/>
                             <constraint firstItem="dPA-FL-Qbm" firstAttribute="top" secondItem="3b8-0Y-7Qi" secondAttribute="bottom" constant="32" id="gqI-oB-I4c"/>
                             <constraint firstItem="3b8-0Y-7Qi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hqy-1z-AkQ"/>
-                            <constraint firstItem="dsP-yd-8Uy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="hxj-vu-COG"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ixs-cv-jEp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dPA-FL-Qbm" secondAttribute="trailing" constant="32" id="n8U-9n-tFt"/>
                             <constraint firstItem="3b8-0Y-7Qi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rSw-CO-kFA"/>
                             <constraint firstItem="yFp-cl-4Yb" firstAttribute="top" secondItem="IQW-wb-ncz" secondAttribute="bottom" id="tSQ-t3-cya"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dsP-yd-8Uy" secondAttribute="trailing" constant="32" id="yGu-HY-UfE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomTextField" destination="dsP-yd-8Uy" id="8qT-6I-dOL"/>
                         <outlet property="cameraButton" destination="GgT-Tq-DSo" id="bMr-9j-RZP"/>
                         <outlet property="imagePickerView" destination="IQW-wb-ncz" id="tFK-xh-DFb"/>
+                        <outlet property="topTextField" destination="dPA-FL-Qbm" id="g22-sZ-05d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
