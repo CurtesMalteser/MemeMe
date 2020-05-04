@@ -18,11 +18,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var bottomTextField: UITextField!
     
-    let defaultTopText = "top"
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
+    let defaultTopText = "top".uppercased()
     var topText : String = ""
     
-    let defaultBottomText = "bottom"
+    let defaultBottomText = "bottom".uppercased()
     var bottomText : String = ""
+    
+    // Variable will assigned to selected text field (topTextField or bottomTextField) to check if keyboard is overlapping it on
+    var selectedTextField : UITextField = UITextField()
     
     override func viewWillAppear(_ animated: Bool) {
         subscribeToKeyboardNotifications()
@@ -36,6 +41,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         topTextField.memeTextFieldAttributes(defaultTopText, textFieldDelegate: self)
         
         bottomTextField.memeTextFieldAttributes(defaultBottomText, textFieldDelegate: self)
+        
+        shareButton.isEnabled = false
         
     }
     
@@ -61,10 +68,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
+    @IBAction func cancelMeme(_ sender: Any) {
+        imagePickerView.image = nil
+        
+        shareButton.isEnabled = false
+        
+        topTextField.memeTextFieldAttributes(defaultTopText, textFieldDelegate: self)
+        
+        bottomTextField.memeTextFieldAttributes(defaultBottomText, textFieldDelegate: self)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage  {
             imagePickerView.image = image
+            shareButton.isEnabled = true
+            topTextField.isEnabled = true
+            bottomTextField.isEnabled = true
         }
         
         picker.dismiss(animated: true, completion:nil)
@@ -76,6 +96,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        selectedTextField = textField
         let text = textField.text
         if text == defaultTopText || text == defaultBottomText {
             textField.text = ""
@@ -87,13 +108,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return true
     }
     
+    /* Moves the UI up, if the keyboard covers the select text field, else nothing happens.
+     It will be used to calculate the number of pixels that are overlapping and apply move the UI
+     by subtracting this value from origin on y axis. */
     @objc func keyboardWillShow(_ notification: Notification) {
+        
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-        let keyboardHeight = keyboardSize.cgRectValue.height
-        view.frame.origin.y = -keyboardHeight
+        
+        let keyboardSize = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        if  keyboardSize.intersects(self.selectedTextField.frame) {
+            view.frame.origin.y = -self.selectedTextField.frame.maxY + keyboardSize.minY
+        }
+        
     }
     
+    // Moves the UI back to default position when keyboard hides.
     @objc func keyboardWillHide(_ notification: Notification) {
         view.frame.origin.y = 0
     }
@@ -111,6 +141,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
 }
 
+// UITextField default attributes.
 fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
     NSAttributedString.Key.strokeColor: UIColor.black,
     NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -118,8 +149,10 @@ fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
     NSAttributedString.Key.strokeWidth: -1.0
 ]
 
+// Extension UITextField function to avoid code duplication, since both text field will have same default attributtes.
 fileprivate extension UITextField {
     func memeTextFieldAttributes(_ string : String, textFieldDelegate: UITextFieldDelegate) {
+        isEnabled = false
         text = string
         defaultTextAttributes = memeTextAttributes
         textAlignment = .center
