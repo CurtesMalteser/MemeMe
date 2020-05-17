@@ -34,6 +34,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var selectedTextField : UITextField = UITextField()
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
     }
     
@@ -42,34 +43,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topTextField.memeTextFieldAttributes(defaultTopText, textFieldDelegate: self)
+        memeTextFieldAttributes(defaultTopText, textField: topTextField)
         
-        bottomTextField.memeTextFieldAttributes(defaultBottomText, textFieldDelegate: self)
+        memeTextFieldAttributes(defaultBottomText, textField: bottomTextField)
         
         shareButton.isEnabled = false
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         unsubscribeToKeyboardNotifications()
     }
     
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-        
+        present(setUpImagePicker(sourceType: .photoLibrary), animated: true, completion: nil)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        
+        present(setUpImagePicker(sourceType: .camera), animated: true, completion: nil)
+    }
+    
+    // Function to initialise UIImagePickerController.
+    // Added to avoid code duplication.
+    func setUpImagePicker( sourceType : UIImagePickerController.SourceType) -> UIImagePickerController{
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        imagePicker.sourceType = sourceType
         
+        return imagePicker
     }
     
     @IBAction func cancelMeme(_ sender: Any) {
@@ -77,13 +79,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         shareButton.isEnabled = false
         
-        topTextField.memeTextFieldAttributes(defaultTopText, textFieldDelegate: self)
+        memeTextFieldAttributes(defaultTopText, textField: topTextField)
         
-        bottomTextField.memeTextFieldAttributes(defaultBottomText, textFieldDelegate: self)
+        memeTextFieldAttributes(defaultBottomText, textField: bottomTextField)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
-        save()
+        
+        let memedImage =  generateMemedImage()
+        
+        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                // User canceled
+                return
+            }
+            
+            // User completed activity
+            self.save(memedImage: memedImage)
+        }
+        
+        present(activityViewController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -149,66 +166,52 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage {
         
         // Hide toolbar and navbar
-        self.topTooltbar.isHidden = true
-        self.bottomToolbar.isHidden = true
+        topTooltbar.isHidden = true
+        bottomToolbar.isHidden = true
         
         // Change background color to black,
         // so meme doesn't include the white color left from removing toolbars
-        self.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        self.topTooltbar.isHidden = false
-        self.bottomToolbar.isHidden = false
+        topTooltbar.isHidden = false
+        bottomToolbar.isHidden = false
         
         // Change background color back to white
-        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         return memedImage
     }
     
-    func save() {
+    func save(memedImage : UIImage) {
         // Create the meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
-        
-        let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-      
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if !completed {
-                // User canceled
-                return
-            }
-            // User completed activity
-            self.save()
-        }
-        
-        self.present(activityViewController, animated: true, completion: nil)
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+    }
+    
+    // UITextField default attributes.
+    fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.strokeColor: UIColor.black,
+        NSAttributedString.Key.foregroundColor: UIColor.white,
+        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.strokeWidth: -1.0
+    ]
+    
+    // Function to avoid code duplication, since both text field will have same default attributtes.
+    
+    func memeTextFieldAttributes(_ string : String, textField: UITextField) {
+        textField.isEnabled = false
+        textField.text = string
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+        textField.delegate = self
     }
     
 }
 
-// UITextField default attributes.
-fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
-    NSAttributedString.Key.strokeColor: UIColor.black,
-    NSAttributedString.Key.foregroundColor: UIColor.white,
-    NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-    NSAttributedString.Key.strokeWidth: -1.0
-]
-
-// Extension UITextField function to avoid code duplication, since both text field will have same default attributtes.
-fileprivate extension UITextField {
-    func memeTextFieldAttributes(_ string : String, textFieldDelegate: UITextFieldDelegate) {
-        isEnabled = false
-        text = string
-        defaultTextAttributes = memeTextAttributes
-        textAlignment = .center
-        delegate = textFieldDelegate
-    }
-    
-}
 
