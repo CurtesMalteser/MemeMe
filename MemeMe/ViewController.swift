@@ -20,6 +20,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
+    @IBOutlet weak var topTooltbar: UIToolbar!
+    
+    @IBOutlet weak var bottomToolbar: UIToolbar!
+    
     let defaultTopText = "top".uppercased()
     var topText : String = ""
     
@@ -78,6 +82,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.memeTextFieldAttributes(defaultBottomText, textFieldDelegate: self)
     }
     
+    @IBAction func shareMeme(_ sender: Any) {
+        save()
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage  {
@@ -118,7 +126,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let keyboardSize = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         if  keyboardSize.intersects(self.selectedTextField.frame) {
-            view.frame.origin.y = -self.selectedTextField.frame.maxY + keyboardSize.minY
+            view.frame.origin.y = -keyboardSize.height
         }
         
     }
@@ -138,6 +146,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func generateMemedImage() -> UIImage {
+
+        // Hide toolbar and navbar
+        self.topTooltbar.isHidden = true
+        self.bottomToolbar.isHidden = true
+
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        // Show toolbar and navbar
+        self.topTooltbar.isHidden = false
+        self.bottomToolbar.isHidden = false
+
+        return memedImage
+    }
+    
+    func save() {
+            // Create the meme
+            let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        
+        let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
 }
 
@@ -158,5 +195,6 @@ fileprivate extension UITextField {
         textAlignment = .center
         delegate = textFieldDelegate
     }
+    
 }
 
