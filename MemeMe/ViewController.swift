@@ -147,31 +147,45 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func generateMemedImage() -> UIImage {
-
+        
         // Hide toolbar and navbar
         self.topTooltbar.isHidden = true
         self.bottomToolbar.isHidden = true
-
+        
+        // Change background color to black,
+        // so meme doesn't include the white color left from removing toolbars
+        self.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-
+        
         // Show toolbar and navbar
         self.topTooltbar.isHidden = false
         self.bottomToolbar.isHidden = false
-
+        
+        // Change background color back to white
+        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
         return memedImage
     }
     
     func save() {
-            // Create the meme
-            let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+        // Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
         
         let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-        
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+      
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                // User canceled
+                return
+            }
+            // User completed activity
+            self.save()
+        }
         
         self.present(activityViewController, animated: true, completion: nil)
     }
