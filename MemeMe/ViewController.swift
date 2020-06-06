@@ -163,11 +163,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func hideToolbars(_ hide: Bool) {
+        topTooltbar.isHidden = hide
+        bottomToolbar.isHidden = hide
+    }
+    
     func generateMemedImage() -> UIImage {
         
         // Hide toolbar and navbar
-        topTooltbar.isHidden = true
-        bottomToolbar.isHidden = true
+        hideToolbars(true)
         
         // Change background color to black,
         // so meme doesn't include the white color left from removing toolbars
@@ -180,8 +184,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        topTooltbar.isHidden = false
-        bottomToolbar.isHidden = false
+        hideToolbars(false)
         
         // Change background color back to white
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -196,17 +199,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // UITextField default attributes.
     fileprivate let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.black,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedString.Key.strokeWidth: -1.0
+        .strokeColor: UIColor.black,
+        .foregroundColor: UIColor.white,
+        .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        .strokeWidth: -1.0
     ]
+    
     
     // Function to avoid code duplication, since both text field will have same default attributtes.
     
     func memeTextFieldAttributes(_ string : String, textField: UITextField) {
         textField.isEnabled = false
-        textField.text = string
+        textField.attributedPlaceholder = NSAttributedString( string: string,
+                                                              attributes: memeTextAttributes )
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = .center
         textField.delegate = self
