@@ -25,10 +25,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomToolbar: UIToolbar!
     
     let defaultTopText = "top".uppercased()
-    var topText : String = ""
     
     let defaultBottomText = "bottom".uppercased()
-    var bottomText : String = ""
     
     // Variable will assigned to selected text field (topTextField or bottomTextField) to check if keyboard is overlapping it on
     var selectedTextField : UITextField = UITextField()
@@ -122,10 +120,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         selectedTextField = textField
-        let text = textField.text
-        if text == defaultTopText || text == defaultBottomText {
-            textField.text = ""
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -166,6 +160,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func hideToolbars(_ hide: Bool) {
         topTooltbar.isHidden = hide
         bottomToolbar.isHidden = hide
+        
+        if hide {
+            if let topTextIsEmpty = topTextField.text?.isEmpty {
+                if(topTextIsEmpty) {
+                    topTextField.isHidden = hide
+                }
+            }
+            
+            if let bottomTextFieldIsEmpty = bottomTextField.text?.isEmpty {
+                if(bottomTextFieldIsEmpty) {
+                  bottomTextField.isHidden = hide
+                }
+            }
+            
+        } else {
+            topTextField.isHidden = hide
+            bottomTextField.isHidden = hide
+        }
     }
     
     func generateMemedImage() -> UIImage {
