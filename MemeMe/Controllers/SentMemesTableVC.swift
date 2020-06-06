@@ -6,4 +6,8 @@
 //  Copyright © 2020 CurtesMalteser. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class SentMemesTableVC: UIViewController {
+    
+}
