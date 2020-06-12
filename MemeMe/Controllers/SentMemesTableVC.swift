@@ -16,6 +16,14 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return appDelegate.memes
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.title = "Sent Memes"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(clickClick))
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear memes count \(memes.count)")
         
@@ -49,6 +57,10 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meme = memes[(indexPath as NSIndexPath).row]
         print("meme: \(meme)")
+    }
+    
+    @objc func clickClick() {
+        print("clickClick")
     }
     
 }
