@@ -16,22 +16,32 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return appDelegate.memes
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear memes count \(memes.count)")
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("memes count \(memes.count)")
         return memes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemeCell")!
+        
         let meme = memes[(indexPath as NSIndexPath).row]
+        
+        print("dequeueReusableCell meme \(meme.topText)")
         
         // Set the name and image
         cell.textLabel?.text = meme.topText
+        // FIXME: implementation to show memed image
         cell.imageView?.image = meme.memedImage
-        
+
         // If the cell has a detail label, we will put the evil scheme in.
-        // if let detailTextLabel = cell.detailTextLabel {
-        // detailTextLabel.text = "Scheme: \(villain.evilScheme)"
-        // }
+        if let detailTextLabel = cell.detailTextLabel {
+        detailTextLabel.text = "\(meme.bottomText)"
+        }
         
         return cell
     }
