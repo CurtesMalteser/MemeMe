@@ -16,8 +16,14 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return appDelegate.memes
     }
     
+    @IBOutlet weak var memesTableView: UITableView!
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        memesTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

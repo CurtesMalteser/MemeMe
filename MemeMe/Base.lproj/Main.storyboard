@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFp-cl-4Yb" userLabel="BottomToolbar">
-                                <rect key="frame" x="0.0" y="764" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="769" width="414" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5jO-LG-icS"/>
                                     <barButtonItem title="Camera" image="camera.fill" catalog="system" id="GgT-Tq-DSo">
@@ -35,7 +35,7 @@
                                 </items>
                             </toolbar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IQW-wb-ncz">
-                                <rect key="frame" x="0.0" y="132" width="414" height="632"/>
+                                <rect key="frame" x="0.0" y="132" width="414" height="637"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3b8-0Y-7Qi" userLabel="TopToolbar">
@@ -60,7 +60,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dsP-yd-8Uy" userLabel="Bottom Text Field">
-                                <rect key="frame" x="32" y="711.66666666666663" width="350" height="20.333333333333371"/>
+                                <rect key="frame" x="32" y="716.66666666666663" width="350" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -187,12 +187,13 @@
                     <navigationItem key="navigationItem" title="Sent Memes" id="MmT-wI-SGw">
                         <barButtonItem key="rightBarButtonItem" image="plus" id="yFO-ea-Ldk">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="wkU-XN-wuG"/>
+                                <segue destination="BYZ-38-t0r" kind="push" id="yKe-2K-jHE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="flowLayout" destination="EDt-XQ-srP" id="Lh5-A4-MfS"/>
+                        <outlet property="memesCollectionView" destination="HAP-fa-JgM" id="blL-Yk-gH0"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5gJ-Vm-ooR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -292,6 +293,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="memesTableView" destination="0Ku-Ja-vYY" id="Fbu-jk-lDp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZB-JS-Mhe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -316,7 +320,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wkU-XN-wuG"/>
+        <segue reference="yKe-2K-jHE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="96"/>
