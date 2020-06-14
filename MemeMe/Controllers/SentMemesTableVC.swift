@@ -30,7 +30,7 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemeCell")!
         
         let meme = memes[(indexPath as NSIndexPath).row]
- 
+        
         // Set the name and image
         cell.textLabel?.text = meme.topText
         // FIXME: implementation to show memed image
@@ -52,4 +52,11 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         navigationController?.pushViewController(detailController, animated: true)
     }
     
+    @IBAction func presentMemeEditor(_ sender: Any) {
+        let memeEditorController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorVC") as! MemeEditorVC
+        
+        memeEditorController.completionHandler = {self.memesTableView.reloadData()}
+        
+        navigationController?.present(memeEditorController, animated: true, completion: nil)
+    }
 }

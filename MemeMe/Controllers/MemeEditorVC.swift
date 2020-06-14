@@ -31,6 +31,8 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     // Variable will assigned to selected text field (topTextField or bottomTextField) to check if keyboard is overlapping it on
     var selectedTextField : UITextField = UITextField()
     
+    var completionHandler: (()->Void)?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
@@ -80,10 +82,9 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         memeTextFieldAttributes(defaultTopText, textField: topTextField)
         
         memeTextFieldAttributes(defaultBottomText, textField: bottomTextField)
-        dismiss(animated: true) {
-            print("dismissed")
-        }
-       
+        
+        dismiss(animated: true)
+        
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -214,7 +215,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         
         (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
         
-        print("memes \((UIApplication.shared.delegate as! AppDelegate).memes.count)")
+        dismiss(animated: true, completion: completionHandler)
     }
     
     // UITextField default attributes.
