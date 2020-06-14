@@ -81,7 +81,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         
         memeTextFieldAttributes(defaultBottomText, textField: bottomTextField)
         
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -172,7 +172,7 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             
             if let bottomTextFieldIsEmpty = bottomTextField.text?.isEmpty {
                 if(bottomTextFieldIsEmpty) {
-                  bottomTextField.isHidden = hide
+                    bottomTextField.isHidden = hide
                 }
             }
             
@@ -211,6 +211,8 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
         
         (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
+        
+        print("memes \((UIApplication.shared.delegate as! AppDelegate).memes.count)")
     }
     
     // UITextField default attributes.
