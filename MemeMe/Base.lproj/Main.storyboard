@@ -11,7 +11,7 @@
         <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Meme Editor View Controller" customClass="MemeEditorVC" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeEditorVC" id="BYZ-38-t0r" userLabel="Meme Editor View Controller" customClass="MemeEditorVC" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +187,7 @@
                     <navigationItem key="navigationItem" title="Sent Memes" id="MmT-wI-SGw">
                         <barButtonItem key="rightBarButtonItem" image="plus" id="yFO-ea-Ldk">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="pv3-JP-gKq"/>
+                                <segue destination="BYZ-38-t0r" kind="show" id="wkU-XN-wuG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -288,7 +288,7 @@
                     <navigationItem key="navigationItem" title="Sent Memes" id="bxl-EI-TNU">
                         <barButtonItem key="rightBarButtonItem" image="plus" id="fiD-cg-gDN">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="bKp-fk-J0f"/>
+                                <segue destination="BYZ-38-t0r" kind="show" id="oZn-MB-Bzn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -316,7 +316,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pv3-JP-gKq"/>
+        <segue reference="wkU-XN-wuG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="96"/>

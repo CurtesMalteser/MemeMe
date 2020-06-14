@@ -16,19 +16,7 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return appDelegate.memes
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear memes count \(memes.count)")
-        
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("memes count \(memes.count)")
         return memes.count
     }
     
@@ -36,17 +24,15 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "MemeCell")!
         
         let meme = memes[(indexPath as NSIndexPath).row]
-        
-        print("dequeueReusableCell meme \(meme.topText)")
-        
+ 
         // Set the name and image
         cell.textLabel?.text = meme.topText
         // FIXME: implementation to show memed image
         cell.imageView?.image = meme.memedImage
-
+        
         // If the cell has a detail label, we will put the evil scheme in.
         if let detailTextLabel = cell.detailTextLabel {
-        detailTextLabel.text = "\(meme.bottomText)"
+            detailTextLabel.text = "\(meme.bottomText)"
         }
         
         return cell
@@ -54,7 +40,7 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meme = memes[(indexPath as NSIndexPath).row]
-    
+        
         let detailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailVC") as! MemeDetailVC
         detailController.meme = meme
         navigationController?.pushViewController(detailController, animated: true)
