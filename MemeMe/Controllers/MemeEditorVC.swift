@@ -80,6 +80,8 @@ class MemeEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         memeTextFieldAttributes(defaultTopText, textField: topTextField)
         
         memeTextFieldAttributes(defaultBottomText, textField: bottomTextField)
+        
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func shareMeme(_ sender: Any) {

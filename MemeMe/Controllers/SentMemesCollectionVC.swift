@@ -21,8 +21,6 @@ class SentMemesCollectionVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Sent Memes"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "plus"), style: .plain, target: self, action: #selector(clickClick))
         
         let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 3.0
@@ -55,8 +53,4 @@ class SentMemesCollectionVC: UICollectionViewController {
         print("collectionView meme\(meme)")
     }
     
-    @objc func clickClick() {
-          print("clickClick")
-      }
-      
 }
