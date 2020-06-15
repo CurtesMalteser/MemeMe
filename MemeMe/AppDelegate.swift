@@ -13,20 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var memes = [Meme]()
     
-    override init() {
-        super.init()
-        
-        memes.append(Meme(topText: "lol",
-                          bottomText: "String",
-                          originalImage: UIImage(),
-                          memedImage: UIImage.randomImage()))
-        
-        memes.append(Meme(topText: "test",
-                          bottomText: "ok",
-                          originalImage: UIImage(),
-                          memedImage: UIImage.randomImage()))
-    }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -46,17 +32,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-}
-
-extension UIImage {
-    static func randomImage() -> UIImage {
-        let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 50, height: 50))
-        let cgImage = CIContext().createCGImage(CIImage(color: CIColor(
-            red:  .random(in: 0...1),
-            green: .random(in: 0...1),
-            blue: .random(in: 0...1),
-            alpha: 1.0
-        )), from: frame)!
-        return UIImage(cgImage: cgImage)
-    }
 }

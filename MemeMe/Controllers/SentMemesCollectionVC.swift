@@ -61,11 +61,7 @@ class SentMemesCollectionVC: UICollectionViewController {
     }
     
     @IBAction func presentMemeEditor(_ sender: Any) {
-        let memeEditorController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorVC") as! MemeEditorVC
-        
-        memeEditorController.completionHandler = {self.memesCollectionView.reloadData()}
-        
-        navigationController?.present(memeEditorController, animated: true, completion: nil)
+        presentMemeEditor(storyboard: storyboard, navigationController: navigationController, completionHandler: {self.memesCollectionView.reloadData()})
     }
     
 }

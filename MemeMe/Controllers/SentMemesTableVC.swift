@@ -53,10 +53,6 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     @IBAction func presentMemeEditor(_ sender: Any) {
-        let memeEditorController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorVC") as! MemeEditorVC
-        
-        memeEditorController.completionHandler = {self.memesTableView.reloadData()}
-        
-        navigationController?.present(memeEditorController, animated: true, completion: nil)
+        presentMemeEditor(storyboard: storyboard, navigationController: navigationController, completionHandler: {self.memesTableView.reloadData()})
     }
 }
