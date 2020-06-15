@@ -18,12 +18,12 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBOutlet weak var memesTableView: UITableView!
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memes.count
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         memesTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return memes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,12 +47,12 @@ class SentMemesTableVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meme = memes[(indexPath as NSIndexPath).row]
         
-        let detailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailVC") as! MemeDetailVC
-        detailController.meme = meme
-        navigationController?.pushViewController(detailController, animated: true)
+        pushMemeDetail(meme: meme, storyboard: storyboard, navigationController: navigationController)
+        
+        
     }
     
     @IBAction func presentMemeEditor(_ sender: Any) {
-        presentMemeEditor(storyboard: storyboard, navigationController: navigationController, completionHandler: {self.memesTableView.reloadData()})
+        presentMemeEditor(completionHandler: {self.memesTableView.reloadData()}, storyboard: storyboard, navigationController: navigationController)
     }
 }

@@ -9,7 +9,18 @@
 import UIKit
 
 extension UIViewController {
-     func presentMemeEditor(storyboard: UIStoryboard?, navigationController: UINavigationController?, completionHandler: (()->Void)?) {
+    
+    func pushMemeDetail(meme: Meme, storyboard: UIStoryboard?, navigationController: UINavigationController?) {
+        
+        let detailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailVC") as! MemeDetailVC
+        
+        detailController.meme = meme
+        
+        navigationController?.pushViewController(detailController, animated: true)
+    }
+    
+    
+    func presentMemeEditor(completionHandler: (()->Void)?, storyboard: UIStoryboard?, navigationController: UINavigationController?) {
         let memeEditorController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorVC") as! MemeEditorVC
         
         memeEditorController.completionHandler = completionHandler
