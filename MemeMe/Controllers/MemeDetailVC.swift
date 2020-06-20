@@ -15,8 +15,6 @@ class MemeDetailVC: UIViewController {
     @IBOutlet weak var memeImageView: UIImageView!
     
     override func viewDidLoad() {
-        print("viewDidLoad meme \(String(describing: meme))")
-        
         memeImageView.image = meme.memedImage
     }
     

@@ -13,7 +13,7 @@ extension UIViewController {
     // Pushes view controller meme detail
     func pushMemeDetail(meme: Meme, storyboard: UIStoryboard?, navigationController: UINavigationController?) {
         
-        let detailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailVC") as! MemeDetailVC
+        let detailController = storyboard?.instantiateViewController(withIdentifier: Constants.memeDetailVC) as! MemeDetailVC
         
         detailController.meme = meme
         
@@ -22,7 +22,7 @@ extension UIViewController {
     
     // Presents meme editor modally
     func presentMemeEditor(completionHandler: (()->Void)?, storyboard: UIStoryboard?, navigationController: UINavigationController?) {
-        let memeEditorController = storyboard?.instantiateViewController(withIdentifier: "MemeEditorVC") as! MemeEditorVC
+        let memeEditorController = storyboard?.instantiateViewController(withIdentifier: Constants.memeEditorVC) as! MemeEditorVC
         
         memeEditorController.completionHandler = completionHandler
         
